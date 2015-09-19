@@ -20,7 +20,7 @@
 <body>
     <script>
 
-        var onConnect = function(evt){
+        var onCreated = function(evt){
             // create div with id; insert into body
             var data = evt.data;
             var newDiv = document.createElement('div');
@@ -28,6 +28,14 @@
             newDiv.innerHTML = 'connected';
             // newDiv.appendChild(document.createTextNode('div with id ' + index));
             document.body.appendChild(newDiv);
+        };
+
+        var onUpdated = function(evt){
+
+            onText(evt);
+            onColor(evt);
+            onWidth(evt);
+
         };
 
         var onText = function(evt){
@@ -48,52 +56,31 @@
             document.getElementById(data.id).style.width = data.width;
         };
 
-        var onDisconnect = function(evt){
+        var onDeleted = function(evt){
             // find div with id; remove div from body
             var data = evt.data;
             document.body.removeChild(document.getElementById(data.id));
         };
 
         var sourceURLs = [
-            'http://user1.pytexas2015.com',
-            'http://user2.pytexas2015.com',
-            'http://user3.pytexas2015.com',
-            'http://user4.pytexas2015.com',
-            'http://user5.pytexas2015.com',
-            'http://user6.pytexas2015.com',
+            'http://159.203.72.183:8000/events'
         ];
 
         for(index in sourceURLs){
 
             var URL = sourceURLs[index];
 
-            var evt = {data: {id: index}};
-            onConnect(evt);
+            var evtSource = new EventSource(URL, {withCredentials: true});
 
-            evt.data.text = 'This is my text from the server';
-            onText(evt);
+            evtSource.onopen = function(evt) {
+                this.addEventListener('created', onCreated, false);
+                this.addEventListener('updated', onUpdated, false);
+                this.addEventListener('deleted', onDeleted, false);
+            }
 
-            evt.data.color = 'red';
-            onColor(evt);
-
-            // evt.data.width = '300px';
-            // onWidth(evt);
-
-            // onDisconnect(evt);
-
-            // var evtSource = new EventSource(URL, {withCredentials: true});
-
-            // evtSource.onopen = function(e) {
-            //     this.addEventListener('connect', onConnect, false);
-            //     this.addEventListener('text', onText, false);
-            //     this.addEventListener('color', onColor, false);
-            //     this.addEventListener('width', onWidth, false);
-            //     this.addEventListener('disconnect', onDisconnect, false);
-            // }
-
-            // evtSource.onerror = function(evt) {
-            //     console.log('An error has occurred', e);
-            // }
+            evtSource.onerror = function(evt) {
+                console.log('An error has occurred', evt);
+            }
         };
 
     </script>
