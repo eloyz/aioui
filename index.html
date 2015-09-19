@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Asyncio Client Interface</title>
+    <style>
+
+        div {
+            float: left;
+            border: 1px solid gray;
+            width: 100px;
+            height: 100px;
+            margin-left: 20px;
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+
+    </style>
+</head>
+<body>
+    <script>
+
+        var onConnect = function(evt){
+            // create div with id; insert into body
+            var data = evt.data;
+            var newDiv = document.createElement('div');
+            newDiv.id = data.id;
+            newDiv.innerHTML = 'connected';
+            // newDiv.appendChild(document.createTextNode('div with id ' + index));
+            document.body.appendChild(newDiv);
+        };
+
+        var onText = function(evt){
+            // find div with id; change text
+            var data = evt.data;
+            document.getElementById(data.id).innerHTML = data.text;
+        };
+
+        var onColor = function(evt){
+            // find div with id; change color attribute
+            var data = evt.data;
+            document.getElementById(data.id).style.backgroundColor = data.color;
+        };
+
+        var onWidth = function(evt){
+            // find div with id; change width attribute
+            var data = evt.data;
+            document.getElementById(data.id).style.width = data.width;
+        };
+
+        var onDisconnect = function(evt){
+            // find div with id; remove div from body
+            var data = evt.data;
+            document.body.removeChild(document.getElementById(data.id));
+        };
+
+        var sourceURLs = [
+            'http://user1.pytexas2015.com',
+            'http://user2.pytexas2015.com',
+            'http://user3.pytexas2015.com',
+            'http://user4.pytexas2015.com',
+            'http://user5.pytexas2015.com',
+            'http://user6.pytexas2015.com',
+        ];
+
+        for(index in sourceURLs){
+
+            var URL = sourceURLs[index];
+
+            var evt = {data: {id: index}};
+            onConnect(evt);
+
+            evt.data.text = 'This is my text from the server';
+            onText(evt);
+
+            evt.data.color = 'red';
+            onColor(evt);
+
+            // evt.data.width = '300px';
+            // onWidth(evt);
+
+            // onDisconnect(evt);
+
+            // var evtSource = new EventSource(URL, {withCredentials: true});
+
+            // evtSource.onopen = function(e) {
+            //     this.addEventListener('connect', onConnect, false);
+            //     this.addEventListener('text', onText, false);
+            //     this.addEventListener('color', onColor, false);
+            //     this.addEventListener('width', onWidth, false);
+            //     this.addEventListener('disconnect', onDisconnect, false);
+            // }
+
+            // evtSource.onerror = function(evt) {
+            //     console.log('An error has occurred', e);
+            // }
+        };
+
+    </script>
+</body>
+</html>
