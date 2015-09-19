@@ -22,48 +22,51 @@
 
         var onCreated = function(evt){
             // create div with id; insert into body
-            var data = evt.data;
+            var data = JSON.parse(evt.data);
             var newDiv = document.createElement('div');
             newDiv.id = data.id;
             newDiv.innerHTML = 'connected';
             // newDiv.appendChild(document.createTextNode('div with id ' + index));
             document.body.appendChild(newDiv);
-        };
-
-        var onUpdated = function(evt){
 
             onText(evt);
             onColor(evt);
             onWidth(evt);
+        };
 
+        var onUpdated = function(evt){
+            onText(evt);
+            onColor(evt);
+            onWidth(evt);
         };
 
         var onText = function(evt){
             // find div with id; change text
-            var data = evt.data;
+            var data = JSON.parse(evt.data);
             document.getElementById(data.id).innerHTML = data.text;
         };
 
         var onColor = function(evt){
             // find div with id; change color attribute
-            var data = evt.data;
+            var data = JSON.parse(evt.data);
             document.getElementById(data.id).style.backgroundColor = data.color;
         };
 
         var onWidth = function(evt){
             // find div with id; change width attribute
-            var data = evt.data;
+            var data = JSON.parse(evt.data);
             document.getElementById(data.id).style.width = data.width;
         };
 
         var onDeleted = function(evt){
             // find div with id; remove div from body
-            var data = evt.data;
+            var data = JSON.parse(evt.data);
             document.body.removeChild(document.getElementById(data.id));
         };
 
         var sourceURLs = [
             'http://159.203.72.183:8000/events'
+            // 'http://10.0.1.68:8000/events'
         ];
 
         for(index in sourceURLs){
