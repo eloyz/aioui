@@ -82,7 +82,13 @@
             }
 
             evtSource.onerror = function(evt) {
-                console.log('An error has occurred', evt);
+                // find div with id; remove div from body
+                console.log('error', evt);
+
+                var divs = document.querySelectorAll('div');
+                [].forEach.call(divs, function(div){
+                    document.body.removeChild(div);
+                });
             }
         };
 
