@@ -43,7 +43,7 @@
         var onText = function(evt){
             // find div with id; change text
             var data = JSON.parse(evt.data);
-            document.getElementById(data.id).innerHTML = data.text;
+            document.getElementById(data.id).innerHTML = data.server + ' ' + data.text;
         };
 
         var onColor = function(evt){
