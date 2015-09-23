@@ -65,8 +65,12 @@
         };
 
         var sourceURLs = [
-            'http://159.203.72.183:8000/events'
+            'http://159.203.72.183:8000/events',
+            'http://159.203.72.183:8097/events',
+            'http://159.203.72.183:8098/events',
+            'http://159.203.72.183:8099/events'
             // 'http://10.0.1.68:8000/events'
+            // 'http://127.0.0.1:8000/events'
         ];
 
         for(index in sourceURLs){
@@ -84,11 +88,10 @@
             evtSource.onerror = function(evt) {
                 // find div with id; remove div from body
                 console.log('error', evt);
-
-                var divs = document.querySelectorAll('div');
-                [].forEach.call(divs, function(div){
-                    document.body.removeChild(div);
-                });
+                // var divs = document.querySelectorAll('div');
+                // [].forEach.call(divs, function(div){
+                //     document.body.removeChild(div);
+                // });
             }
         };
 
