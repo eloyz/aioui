@@ -9,7 +9,6 @@
 8. Connect with us on Twitter [@eloy](https://twitter.com/eloy) [@jpwatts](https://twitter.com/jpwatts)
 
 ## Connect to server
-    # Remember to replace the last portion with the connection id
     curl "http://159.203.72.183:8000/events"
 
 ## Update Connection
