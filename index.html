@@ -6,13 +6,19 @@
     <style>
 
         div {
+            font-size: 2em;
             float: left;
             border: 1px solid gray;
-            width: 100px;
-            height: 100px;
+            min-width: 200px;
+            min-height: 200px;
             margin-left: 20px;
             margin-bottom: 20px;
             padding: 15px;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 0;
         }
 
     </style>
@@ -43,7 +49,8 @@
         var onText = function(evt){
             // find div with id; change text
             var data = JSON.parse(evt.data);
-            document.getElementById(data.id).innerHTML = data.server + ' ' + data.text;
+            var innerHTML = '<p>' + data.server + '</p><p>' + data.text + '</p>';
+            document.getElementById(data.id).innerHTML = innerHTML;
         };
 
         var onColor = function(evt){
